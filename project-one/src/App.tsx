@@ -3,6 +3,8 @@ import SearchInput from './components/SearchInput';
 import SearchResults from './components/SearchResults';
 import { fetchCharacters } from './services/api';
 import { Character } from './types';
+import ErrorBoundary from './components/ErrorBoundary';
+import ErrorButton from './components/ErrorButton';
 
 interface State {
   searchTerm: string;
@@ -48,16 +50,20 @@ class App extends Component<Record<string, never>, State> {
 
   render() {
     const { searchTerm, results, loading, error } = this.state;
+
     return (
-      <div className="app">
-        <div className="search-section">
-          <SearchInput searchTerm={searchTerm} onSearch={this.handleSearch} />
+      <ErrorBoundary>
+        <div className="app">
+          <div className="search-section">
+            <SearchInput searchTerm={searchTerm} onSearch={this.handleSearch} />
+          </div>
+          {error && <div className="error">{error}</div>}
+          <ErrorButton />
+          <div className="results-section">
+            <SearchResults results={results} loading={loading} />
+          </div>
         </div>
-        {error && <div className="error">{error}</div>}
-        <div className="results-section">
-          <SearchResults results={results} loading={loading} />
-        </div>
-      </div>
+      </ErrorBoundary>
     );
   }
 }

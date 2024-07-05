@@ -12,7 +12,7 @@ export const fetchCharacters = async (
   const response = await fetch(url);
   if (!response.ok) {
     if (response.status === 404) {
-      return []; // No characters found
+      return [];
     }
     throw new Error('Network response was not ok');
   }

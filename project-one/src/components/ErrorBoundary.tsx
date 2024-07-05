@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import './ErrorBoundary.css';
 
 interface Props {
   children: ReactNode;
@@ -6,26 +7,42 @@ interface Props {
 
 interface State {
   hasError: boolean;
-  error: string | null;
 }
 
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error: error.message };
+  static getDerivedStateFromError(): State {
+    return { hasError: true };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Error caught by ErrorBoundary:', error, errorInfo);
   }
 
+  handleReload = () => {
+    window.location.reload();
+  };
+
   render() {
     if (this.state.hasError) {
-      return <h1>Something went wrong: {this.state.error}</h1>;
+      return (
+        <div className="error-container">
+          <div className="error-box">
+            <h1 className="error-heading">Oops! Something went wrong.</h1>
+            <p className="error-message">
+              An error occurred while loading this page. Please try reloading
+              the page.
+            </p>
+            <button className="error-button" onClick={this.handleReload}>
+              Reload Page
+            </button>
+          </div>
+        </div>
+      );
     }
 
     return this.props.children;
