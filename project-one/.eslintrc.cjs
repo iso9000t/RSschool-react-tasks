@@ -34,8 +34,8 @@ module.exports = {
     },
   },
   rules: {
-    'prettier/prettier': 'error',
     'react-compiler/react-compiler': 'error',
     'react/react-in-jsx-scope': 'off',
+     'prettier/prettier': 0,
   },
 };
