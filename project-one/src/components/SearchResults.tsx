@@ -11,13 +11,25 @@ class SearchResults extends Component<Props> {
     const { results, loading } = this.props;
 
     if (loading) {
-      return <div>Loading...</div>;
+      return (
+        <div className="loader">
+          <div className="spinner"></div>
+        </div>
+      );
+    }
+
+    if (results.length === 0) {
+      return (
+        <div className="no-results">
+          <p>Nothing found</p>
+        </div>
+      );
     }
 
     return (
-      <div>
+      <div className="results">
         {results.map((result: Character) => (
-          <div key={result.id}>
+          <div key={result.id} className="result-item">
             <h3>{result.name}</h3>
             <p>{result.species}</p>
             <img src={result.image} alt={result.name} />

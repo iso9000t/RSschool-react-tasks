@@ -3,7 +3,6 @@ import SearchInput from './components/SearchInput';
 import SearchResults from './components/SearchResults';
 import { fetchCharacters } from './services/api';
 import { Character } from './types';
-import ErrorBoundary from './components/ErrorBoundary';
 
 interface State {
   searchTerm: string;
@@ -28,12 +27,6 @@ class App extends Component<Record<string, never>, State> {
     this.fetchResults(this.state.searchTerm);
   }
 
-  setSearchTerm = (term: string) => {
-    this.setState({ searchTerm: term }, () => {
-      this.fetchResults(term);
-    });
-  };
-
   fetchResults = async (searchTerm: string) => {
     this.setState({ loading: true, error: null });
     try {
@@ -47,26 +40,24 @@ class App extends Component<Record<string, never>, State> {
     }
   };
 
-  // Method to force an error
-  throwError = () => {
-    throw new Error('Test Error');
+  handleSearch = (term: string) => {
+    this.setState({ searchTerm: term }, () => {
+      this.fetchResults(term);
+    });
   };
 
   render() {
     const { searchTerm, results, loading, error } = this.state;
     return (
-      <ErrorBoundary>
-        <div className="app">
-          <button onClick={this.throwError}>Throw Error</button>{' '}
-          {/* Button to throw error */}
-          <SearchInput
-            searchTerm={searchTerm}
-            setSearchTerm={this.setSearchTerm}
-          />
-          {error && <div className="error">{error}</div>}
+      <div className="app">
+        <div className="search-section">
+          <SearchInput searchTerm={searchTerm} onSearch={this.handleSearch} />
+        </div>
+        {error && <div className="error">{error}</div>}
+        <div className="results-section">
           <SearchResults results={results} loading={loading} />
         </div>
-      </ErrorBoundary>
+      </div>
     );
   }
 }

@@ -2,31 +2,43 @@ import React, { Component } from 'react';
 
 interface Props {
   searchTerm: string;
-  setSearchTerm: (term: string) => void;
+  onSearch: (term: string) => void;
 }
 
-class SearchInput extends Component<Props> {
+interface State {
+  localSearchTerm: string;
+}
+
+class SearchInput extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      localSearchTerm: props.searchTerm,
+    };
+  }
+
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.props.setSearchTerm(event.target.value);
+    this.setState({ localSearchTerm: event.target.value });
   };
 
   handleSearch = () => {
-    const trimmedSearchTerm = this.props.searchTerm.trim();
+    const trimmedSearchTerm = this.state.localSearchTerm.trim();
+    this.props.onSearch(trimmedSearchTerm);
     if (trimmedSearchTerm) {
-      // Check if trimmedSearchTerm is not empty
       localStorage.setItem('searchTerm', trimmedSearchTerm);
       console.log(`Saved to local storage: ${trimmedSearchTerm}`);
     } else {
-      console.log('Search term is empty, not saving to local storage.');
+      localStorage.removeItem('searchTerm');
+      console.log('Search term is empty, removed from local storage.');
     }
   };
 
   render() {
     return (
-      <div>
+      <div className="search-section">
         <input
           type="text"
-          value={this.props.searchTerm}
+          value={this.state.localSearchTerm}
           onChange={this.handleChange}
         />
         <button onClick={this.handleSearch}>Search</button>
