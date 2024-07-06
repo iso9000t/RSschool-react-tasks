@@ -38,6 +38,18 @@
   transition: background-color 0.3s;
 }
 
+.search-section + button {
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid gray;
+}
+
+.search-section + button:hover {
+  background-color: rgb(225, 225, 225);
+  cursor: pointer;
+}
+
 .search-section button:hover {
   background-color: #1e909b;
 }
@@ -45,6 +57,7 @@
 .results-section {
   width: 100%;
   max-width: 80%;
+  margin: 0;
 }
 
 .loader {
@@ -71,7 +84,7 @@
 }
 
 .result-item:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .result-item img {
