@@ -1,10 +1,10 @@
 import { Component } from 'react';
-import SearchInput from './components/SearchInput';
-import SearchResults from './components/SearchResults';
+import SearchInput from './components/SearchInput/SearchInput';
+import SearchResults from './components/SearchResults/SearchResults';
 import { fetchCharacters } from './services/api';
 import { Character } from './types';
-import ErrorBoundary from './components/ErrorBoundary';
-import ErrorButton from './components/ErrorButton';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import ErrorButton from './components/ErrorButton/ErrorButton';
 
 interface State {
   searchTerm: string;
