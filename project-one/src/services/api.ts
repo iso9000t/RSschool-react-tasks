@@ -6,7 +6,7 @@ export const fetchCharacters = async (
   searchTerm: string = '',
 ): Promise<Character[]> => {
   const url = searchTerm
-    ? `${API_URL}/character/?name=${searchTerm}`
+    ? `${API_URL}/character/?name=${searchTerm}&page=1`
     : `${API_URL}/character`;
 
   const response = await fetch(url);
