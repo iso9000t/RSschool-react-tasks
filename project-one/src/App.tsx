@@ -1,10 +1,9 @@
 import { Component } from 'react';
-import SearchInput from './components/SearchInput/SearchInput';
 import SearchResults from './components/SearchResults/SearchResults';
 import { fetchCharacters } from './services/api';
 import { Character } from './types';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import ErrorButton from './components/ErrorButton/ErrorButton';
+import TopField from './components/TopField/TopField';
 
 interface State {
   searchTerm: string;
@@ -54,11 +53,8 @@ class App extends Component<Record<string, never>, State> {
     return (
       <ErrorBoundary>
         <div className="app">
-          <div className="search-section">
-            <SearchInput searchTerm={searchTerm} onSearch={this.handleSearch} />
-          </div>
+          <TopField searchTerm={searchTerm} onSearch={this.handleSearch} />
           {error && <div className="error">{error}</div>}
-          <ErrorButton />
           <div className="results-section">
             <SearchResults results={results} loading={loading} />
           </div>
