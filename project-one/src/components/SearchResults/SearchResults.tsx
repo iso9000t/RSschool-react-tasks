@@ -11,10 +11,8 @@ function SearchResults({ results, loading }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleItemClick = (id: number) => {
-    console.log(`Item clicked: ${id}`);
     searchParams.set('details', id.toString());
     setSearchParams(searchParams);
-    console.log('Updated searchParams:', searchParams.toString());
     navigate(`details/${id}`);
   };
 

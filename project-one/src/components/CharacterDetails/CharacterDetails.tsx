@@ -13,11 +13,9 @@ const CharacterDetails = () => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      console.log(`Fetching details for character ID: ${id}`);
       try {
         const data = await fetchCharacterDetails(parseInt(id!, 10));
         setCharacter(data);
-        console.log('Character details fetched:', data);
       } catch (err) {
         console.error('Failed to load character details', err);
         setError('Failed to load character details');

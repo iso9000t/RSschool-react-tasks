@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams, Outlet } from 'react-router-dom';
 import SearchResults from './components/SearchResults/SearchResults';
 import { fetchCharacters } from './services/api';
@@ -17,6 +17,7 @@ const App = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
   const detailsId = searchParams.get('details');
+  const detailsRef = useRef<HTMLDivElement>(null);
 
   const fetchResults = useCallback(async (term: string, page: number) => {
     setLoading(true);
@@ -39,12 +40,6 @@ const App = () => {
     fetchResults(searchTerm, page);
   }, [fetchResults, searchTerm, page]);
 
-  // Logging changes to isDetailsVisible
-  useEffect(() => {
-    console.log(`detailsId: ${detailsId}`); // Log detailsId directly
-    console.log(`isDetailsVisible: ${Boolean(detailsId)}`);
-  }, [detailsId]);
-
   const handleSearch = (term: string) => {
     setSearchTerm(term);
     fetchResults(term, 1);
@@ -60,11 +55,23 @@ const App = () => {
     setSearchParams(searchParams);
   };
 
-  const isDetailsVisible = Boolean(detailsId);
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      detailsRef.current &&
+      !detailsRef.current.contains(event.target as Node)
+    ) {
+      handleCloseDetails();
+    }
+  };
 
-  console.log(
-    `Render App: isDetailsVisible = ${isDetailsVisible}, detailsId = ${detailsId}`,
-  );
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
+
+  const isDetailsVisible = Boolean(detailsId);
 
   return (
     <ErrorBoundary>
@@ -77,12 +84,16 @@ const App = () => {
             onPageChange={handlePageChange}
             hasResults={results.length > 0}
           />
+          {loading && <div className="loader">Loading...</div>}
           {error && <div className="error">{error}</div>}
           <div className="results-section">
             <SearchResults results={results} loading={loading} />
           </div>
         </div>
-        <div className={`details-section ${isDetailsVisible ? '' : 'hidden'}`}>
+        <div
+          ref={detailsRef}
+          className={`details-section ${isDetailsVisible ? '' : 'hidden'}`}
+        >
           <Outlet context={{ handleCloseDetails }} />
         </div>
       </div>
