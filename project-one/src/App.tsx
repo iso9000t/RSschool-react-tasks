@@ -1,6 +1,5 @@
-// src/App.tsx
 import { useState, useEffect, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Outlet } from 'react-router-dom';
 import SearchResults from './components/SearchResults/SearchResults';
 import { fetchCharacters } from './services/api';
 import { Character } from './types';
@@ -17,6 +16,7 @@ const App = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
+  const detailsId = searchParams.get('details');
 
   const fetchResults = useCallback(async (term: string, page: number) => {
     setLoading(true);
@@ -39,6 +39,12 @@ const App = () => {
     fetchResults(searchTerm, page);
   }, [fetchResults, searchTerm, page]);
 
+  // Logging changes to isDetailsVisible
+  useEffect(() => {
+    console.log(`detailsId: ${detailsId}`); // Log detailsId directly
+    console.log(`isDetailsVisible: ${Boolean(detailsId)}`);
+  }, [detailsId]);
+
   const handleSearch = (term: string) => {
     setSearchTerm(term);
     fetchResults(term, 1);
@@ -49,19 +55,35 @@ const App = () => {
     setSearchParams({ page: newPage.toString() });
   };
 
+  const handleCloseDetails = () => {
+    searchParams.delete('details');
+    setSearchParams(searchParams);
+  };
+
+  const isDetailsVisible = Boolean(detailsId);
+
+  console.log(
+    `Render App: isDetailsVisible = ${isDetailsVisible}, detailsId = ${detailsId}`,
+  );
+
   return (
     <ErrorBoundary>
-      <div className="app">
-        <TopField searchTerm={searchTerm} onSearch={handleSearch} />
-        <Pagination
-          currentPage={page}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-          hasResults={results.length > 0}
-        />
-        {error && <div className="error">{error}</div>}
-        <div className="results-section">
-          <SearchResults results={results} loading={loading} />
+      <div className={`app ${isDetailsVisible ? 'split-view' : 'full-width'}`}>
+        <div className="main-content">
+          <TopField searchTerm={searchTerm} onSearch={handleSearch} />
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            hasResults={results.length > 0}
+          />
+          {error && <div className="error">{error}</div>}
+          <div className="results-section">
+            <SearchResults results={results} loading={loading} />
+          </div>
+        </div>
+        <div className={`details-section ${isDetailsVisible ? '' : 'hidden'}`}>
+          <Outlet context={{ handleCloseDetails }} />
         </div>
       </div>
     </ErrorBoundary>

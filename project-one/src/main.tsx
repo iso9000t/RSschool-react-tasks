@@ -2,21 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFound from './components/NotFound/NotFound.tsx';
+import CharacterDetails from './components/CharacterDetails/CharacterDetails.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/main" />,
-  },
-  {
-    path: '/main',
     element: <App />,
+    children: [
+      {
+        path: 'details/:id',
+        element: <CharacterDetails />,
+      },
+    ],
     errorElement: <NotFound />,
   },
   {
