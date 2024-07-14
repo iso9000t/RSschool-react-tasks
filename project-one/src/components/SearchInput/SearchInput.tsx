@@ -1,4 +1,5 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
+import useLocalStorageSearchTerm from '../../hooks/useLocalStorageSearchTerm';
 
 interface Props {
   searchTerm: string;
@@ -6,11 +7,8 @@ interface Props {
 }
 
 function SearchInput({ searchTerm, onSearch }: Props) {
-  const [localSearchTerm, setLocalSearchTerm] = useState<string>(searchTerm);
-
-  useEffect(() => {
-    setLocalSearchTerm(searchTerm);
-  }, [searchTerm]);
+  const [localSearchTerm, setLocalSearchTerm, handleSearchTermSave] =
+    useLocalStorageSearchTerm('searchTerm', searchTerm);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLocalSearchTerm(event.target.value);
@@ -20,13 +18,7 @@ function SearchInput({ searchTerm, onSearch }: Props) {
     const trimmedSearchTerm = localSearchTerm.trim();
     if (trimmedSearchTerm !== searchTerm) {
       onSearch(trimmedSearchTerm);
-      if (trimmedSearchTerm) {
-        localStorage.setItem('searchTerm', trimmedSearchTerm);
-        console.log(`Saved to local storage: ${trimmedSearchTerm}`);
-      } else {
-        localStorage.removeItem('searchTerm');
-        console.log('Search term is empty, removed from local storage.');
-      }
+      handleSearchTermSave();
     }
   };
 
