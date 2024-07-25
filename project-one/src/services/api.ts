@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ApiResponse, Character } from '../types';
 
 const API_URL = 'https://rickandmortyapi.com/api';
@@ -15,22 +16,22 @@ export const fetchCharacters = async (
     ? `${API_URL}/character/?name=${searchTerm}&page=${page}`
     : `${API_URL}/character?page=${page}`;
 
-  const response = await fetch(url);
-  if (!response.ok) {
-    if (response.status === 404) {
+  try {
+    const response = await axios.get<ApiResponse>(url);
+    return { characters: response.data.results, totalPages: response.data.info.pages };
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
       return { characters: [], totalPages: 0 };
     }
     throw new Error('Network response was not ok');
   }
-  const data: ApiResponse = await response.json();
-  return { characters: data.results, totalPages: data.info.pages };
 };
 
 export const fetchCharacterDetails = async (id: number): Promise<Character> => {
-  const response = await fetch(`${API_URL}/character/${id}`);
-  if (!response.ok) {
+  try {
+    const response = await axios.get<Character>(`${API_URL}/character/${id}`);
+    return response.data;
+  } catch (error) {
     throw new Error('Failed to fetch character details');
   }
-  const data: Character = await response.json();
-  return data;
 };
