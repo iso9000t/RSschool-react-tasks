@@ -1,42 +1,26 @@
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Character } from '../../types';
-import { fetchCharacterDetails } from '../../services/api';
 
+import { useParams, useNavigate } from 'react-router-dom';
+import { useGetCharacterDetailsQuery } from '../../services/apiSlice';
 
 const CharacterDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [character, setCharacter] = useState<Character | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchDetails = async () => {
-      try {
-        const data = await fetchCharacterDetails(parseInt(id!, 10));
-        setCharacter(data);
-      } catch (err) {
-        console.error('Failed to load character details', err);
-        setError('Failed to load character details');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDetails();
-  }, [id]);
+  const {
+    data: character,
+    error,
+    isLoading,
+  } = useGetCharacterDetailsQuery(parseInt(id!, 10));
 
   const handleClose = () => {
     navigate('/', { replace: true });
   };
 
-  if (loading) {
+  if (isLoading) {
     return <div className="loader">Loading...</div>;
   }
 
   if (error) {
-    return <div className="error">{error}</div>;
+    return <div className="error">Failed to load character details</div>;
   }
 
   return (
