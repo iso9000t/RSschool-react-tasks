@@ -1,4 +1,4 @@
-import axios from 'axios';
+/* import axios from 'axios';
 import { ApiResponse, Character } from '../types';
 
 const API_URL = 'https://rickandmortyapi.com/api';
@@ -35,3 +35,4 @@ export const fetchCharacterDetails = async (id: number): Promise<Character> => {
     throw new Error('Failed to fetch character details');
   }
 };
+ */

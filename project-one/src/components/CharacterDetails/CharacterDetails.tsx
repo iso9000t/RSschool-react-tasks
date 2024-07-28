@@ -1,6 +1,6 @@
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { useGetCharacterDetailsQuery } from '../../services/apiSlice';
+import { useGetCharacterDetailsQuery } from '../../store/apiSlice';
 
 const CharacterDetails = () => {
   const { id } = useParams<{ id: string }>();

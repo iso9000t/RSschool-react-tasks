@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 import useLocalStorageSearchTerm from '../../hooks/useLocalStorageSearchTerm';
-import { useLazyGetCharactersQuery } from '../../services/apiSlice';
+import { useLazyGetCharactersQuery } from '../../store/apiSlice';
 
 interface Props {
   searchTerm: string;

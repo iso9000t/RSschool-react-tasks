@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Outlet } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCurrentPage } from './store/paginationSlice';
 import SearchResults from './components/SearchResults/SearchResults';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import TopField from './components/TopField/TopField';
@@ -8,23 +10,16 @@ import Pagination from './components/Pagination/Pagination';
 const App = () => {
   const savedSearchTerm = localStorage.getItem('searchTerm') || '';
   const [searchTerm, setSearchTerm] = useState<string>(savedSearchTerm);
-  const [totalPages, setTotalPages] = useState<number>(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = parseInt(searchParams.get('page') || '1', 10);
   const detailsId = searchParams.get('details');
   const detailsRef = useRef<HTMLDivElement>(null);
+
+  const dispatch = useDispatch();
 
   const handleSearch = (term: string) => {
     setSearchTerm(term);
     setSearchParams({ searchTerm: term, page: '1' });
-  };
-
-  const handlePageChange = (newPage: number) => {
-    setSearchParams({ searchTerm, page: newPage.toString() });
-  };
-
-  const handleTotalPagesUpdate = (total: number) => {
-    setTotalPages(total);
+    dispatch(setCurrentPage(1));
   };
 
   const handleCloseDetails = () => {
@@ -55,14 +50,9 @@ const App = () => {
       <div className={`app ${isDetailsVisible ? 'split-view' : 'full-width'}`}>
         <div className="main-content">
           <TopField searchTerm={searchTerm} onSearch={handleSearch} />
-          <Pagination
-            currentPage={page}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            hasResults={true} // изменил на true, потому что проверка будет внутри SearchResults
-          />
+          <Pagination />
           <div className="results-section">
-            <SearchResults onTotalPagesUpdate={handleTotalPagesUpdate} />
+            <SearchResults />
           </div>
         </div>
         <div

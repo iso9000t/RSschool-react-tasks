@@ -1,33 +1,35 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useLazyGetCharactersQuery } from '../../services/apiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+import { setTotalPages } from '../../store/paginationSlice';
 import { Character } from '../../types';
+import { RootState } from '../../store/store';
+import { useLazyGetCharactersQuery } from '../../store/apiSlice';
 
-interface SearchResultsProps {
-  onTotalPagesUpdate: (total: number) => void;
-}
-
-const SearchResults: React.FC<SearchResultsProps> = ({
-  onTotalPagesUpdate,
-}) => {
+const SearchResults = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [trigger, { data, isLoading, error }] = useLazyGetCharactersQuery();
+  const dispatch = useDispatch();
+  const currentPage = useSelector(
+    (state: RootState) => state.pagination.currentPage,
+  );
 
   const searchTerm = searchParams.get('searchTerm') || '';
-  const page = parseInt(searchParams.get('page') || '1', 10);
 
   useEffect(() => {
     if (searchTerm) {
-      trigger({ searchTerm, page });
+      trigger({ searchTerm, page: currentPage });
     }
-  }, [searchTerm, page, trigger]);
+  }, [searchTerm, currentPage, trigger]);
 
   useEffect(() => {
     if (data) {
-      onTotalPagesUpdate(data.totalPages);
+      dispatch(setTotalPages(data.totalPages));
     }
-  }, [data, onTotalPagesUpdate]);
+  }, [data, dispatch]);
 
   const handleItemClick = (id: number) => {
     searchParams.set('details', id.toString());
@@ -46,10 +48,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   if (error) {
     let errorMessage;
     if ('status' in error) {
-      // Это FetchBaseQueryError
       errorMessage = `Error: ${error.status}`;
-    } else if (error.message) {
-      // Это SerializedError
+    } else if ('message' in error) {
       errorMessage = `Error: ${error.message}`;
     } else {
       errorMessage = 'Unknown error';
