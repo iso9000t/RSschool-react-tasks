@@ -45,7 +45,11 @@ const SearchResults = () => {
   if (error) {
     let errorMessage;
     if ('status' in error) {
-      errorMessage = `Error: ${error.status}`;
+      if (error.status === 404) {
+        errorMessage = 'No data found';
+      } else {
+        errorMessage = `Error: ${error.status}`;
+      }
     } else if ('message' in error) {
       errorMessage = `Error: ${error.message}`;
     } else {
@@ -57,7 +61,7 @@ const SearchResults = () => {
   if (!data || data.characters.length === 0) {
     return (
       <div className="no-results">
-        <p>Nothing found</p>
+        <p>No data found</p>
       </div>
     );
   }

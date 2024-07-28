@@ -101,7 +101,6 @@ body {
   align-items: center;
 }
 
-
 .loader {
   display: flex;
   justify-content: center;
@@ -113,6 +112,12 @@ body {
   text-align: center;
   font-size: 18px;
   color: #555;
+}
+
+.error {
+  text-align: center;
+  font-size: 18px;
+  color: red;
 }
 
 .result-item {
