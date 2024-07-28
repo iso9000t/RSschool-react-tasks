@@ -5,6 +5,7 @@ import { setTotalPages } from '../../store/paginationSlice';
 import { Character } from '../../types';
 import { useLazyGetCharactersQuery } from '../../store/apiSlice';
 import { RootState } from '../../store/store';
+import { toggleSelectedItem } from '../../store/selectedItemsSlice';
 
 const SearchResults = () => {
   const navigate = useNavigate();
@@ -14,6 +15,9 @@ const SearchResults = () => {
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage,
+  );
+  const selectedItems = useSelector(
+    (state: RootState) => state.selectedItems.selectedItems,
   );
 
   useEffect(() => {
@@ -32,6 +36,10 @@ const SearchResults = () => {
     searchParams.set('details', id.toString());
     setSearchParams(searchParams);
     navigate(`details/${id}`);
+  };
+
+  const handleCheckboxChange = (character: Character) => {
+    dispatch(toggleSelectedItem(character));
   };
 
   if (isLoading) {
@@ -81,6 +89,12 @@ const SearchResults = () => {
             }
           }}
         >
+          <input
+            type="checkbox"
+            checked={selectedItems.some((item) => item.id === result.id)}
+            onChange={() => handleCheckboxChange(result)}
+            onClick={(e) => e.stopPropagation()}
+          />
           <h3>{result.name}</h3>
           <p>{result.species}</p>
           <img src={result.image} alt={result.name} />
