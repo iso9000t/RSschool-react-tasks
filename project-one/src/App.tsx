@@ -6,6 +6,7 @@ import SearchResults from './components/SearchResults/SearchResults';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import TopField from './components/TopField/TopField';
 import Pagination from './components/Pagination/Pagination';
+import Flyout from './components/Flyout/Flyout';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const App = () => {
         >
           <Outlet context={{ handleCloseDetails }} />
         </div>
+        <Flyout />
       </div>
     </ErrorBoundary>
   );

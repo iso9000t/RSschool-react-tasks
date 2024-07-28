@@ -23,7 +23,7 @@ function SearchInput() {
     const trimmedSearchTerm = localSearchTerm.trim();
     if (trimmedSearchTerm !== searchTerm) {
       dispatch(setSearchTerm(trimmedSearchTerm));
-      dispatch(setCurrentPage(1)); // Сбрасываем текущую страницу на первую при новом поиске
+      dispatch(setCurrentPage(1));
       handleSearchTermSave();
       trigger({ searchTerm: trimmedSearchTerm, page: 1 });
     }

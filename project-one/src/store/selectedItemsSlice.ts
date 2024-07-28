@@ -18,9 +18,9 @@ const selectedItemsSlice = createSlice({
         (item) => item.id === action.payload.id,
       );
       if (index >= 0) {
-        state.selectedItems.splice(index, 1); // Убираем элемент, если он уже был выбран
+        state.selectedItems.splice(index, 1);
       } else {
-        state.selectedItems.push(action.payload); // Добавляем элемент, если он еще не был выбран
+        state.selectedItems.push(action.payload);
       }
     },
     unselectAllItems(state) {
