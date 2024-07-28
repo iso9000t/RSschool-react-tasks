@@ -1,14 +1,33 @@
-import { Character } from '../../types';
+import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLazyGetCharactersQuery } from '../../services/apiSlice';
+import { Character } from '../../types';
 
-interface Props {
-  results: Character[];
-  loading: boolean;
+interface SearchResultsProps {
+  onTotalPagesUpdate: (total: number) => void;
 }
 
-function SearchResults({ results, loading }: Props) {
+const SearchResults: React.FC<SearchResultsProps> = ({
+  onTotalPagesUpdate,
+}) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [trigger, { data, isLoading, error }] = useLazyGetCharactersQuery();
+
+  const searchTerm = searchParams.get('searchTerm') || '';
+  const page = parseInt(searchParams.get('page') || '1', 10);
+
+  useEffect(() => {
+    if (searchTerm) {
+      trigger({ searchTerm, page });
+    }
+  }, [searchTerm, page, trigger]);
+
+  useEffect(() => {
+    if (data) {
+      onTotalPagesUpdate(data.totalPages);
+    }
+  }, [data, onTotalPagesUpdate]);
 
   const handleItemClick = (id: number) => {
     searchParams.set('details', id.toString());
@@ -16,7 +35,7 @@ function SearchResults({ results, loading }: Props) {
     navigate(`details/${id}`);
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="loader">
         <div className="spinner"></div>
@@ -24,7 +43,21 @@ function SearchResults({ results, loading }: Props) {
     );
   }
 
-  if (results.length === 0) {
+  if (error) {
+    let errorMessage;
+    if ('status' in error) {
+      // Это FetchBaseQueryError
+      errorMessage = `Error: ${error.status}`;
+    } else if (error.message) {
+      // Это SerializedError
+      errorMessage = `Error: ${error.message}`;
+    } else {
+      errorMessage = 'Unknown error';
+    }
+    return <div className="error">{errorMessage}</div>;
+  }
+
+  if (!data || data.characters.length === 0) {
     return (
       <div className="no-results">
         <p>Nothing found</p>
@@ -34,7 +67,7 @@ function SearchResults({ results, loading }: Props) {
 
   return (
     <div className="results">
-      {results.map((result) => (
+      {data.characters.map((result: Character) => (
         <div
           key={result.id}
           className="result-item"
@@ -54,6 +87,6 @@ function SearchResults({ results, loading }: Props) {
       ))}
     </div>
   );
-}
+};
 
 export default SearchResults;
