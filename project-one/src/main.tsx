@@ -1,11 +1,9 @@
-// main.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
 
 import NotFound from './components/NotFound/NotFound';
 import CharacterDetails from './components/CharacterDetails/CharacterDetails';
@@ -35,7 +33,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <ThemeProvider>
         {' '}
-        {/* Wrap App with ThemeProvider */}
         <RouterProvider router={router} />
       </ThemeProvider>
     </Provider>

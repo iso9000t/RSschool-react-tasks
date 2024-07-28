@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetCharacterDetailsQuery } from '../../store/apiSlice';
 

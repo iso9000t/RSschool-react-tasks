@@ -323,3 +323,19 @@ body {
 .flyout button:hover {
   background-color: #1e909b;
 }
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #9c9c9c;
+}
+
+.error-box {
+    text-align: center;
+    background-color: #d4d4d4;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
