@@ -2,6 +2,16 @@ html {
   overflow-y: scroll;
 }
 
+html.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+html.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -13,6 +23,16 @@ body {
   flex-direction: row;
   align-items: flex-start;
   padding: 20px;
+}
+
+.app.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.app.dark {
+  background-color: #333333;
+  color: #ffffff;
 }
 
 .top-field {
@@ -38,6 +58,11 @@ body {
   position: relative;
 }
 
+.app.dark .search-section {
+  background-color: #555555;
+  border-color: #999999;
+}
+
 .search-section input {
   width: 80%;
   padding: 10px;
@@ -45,6 +70,11 @@ body {
   border-radius: 4px 0 0 4px;
   outline: none;
   font-size: 16px;
+}
+
+.app.dark .search-section input {
+  background-color: #777777;
+  color: #ffffff;
 }
 
 .search-button {
@@ -101,6 +131,10 @@ body {
   align-items: center;
 }
 
+.app.dark .details-section {
+  background-color: #444444;
+}
+
 .loader {
   display: flex;
   justify-content: center;
@@ -133,6 +167,10 @@ body {
 
 .result-item:hover {
   transform: scale(1.02);
+}
+
+.app.dark .result-item {
+  background: #555555;
 }
 
 .result-item img {
@@ -266,6 +304,10 @@ body {
   align-items: center;
   padding: 10px 20px;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.app.dark .flyout {
+  background-color: #111;
 }
 
 .flyout button {

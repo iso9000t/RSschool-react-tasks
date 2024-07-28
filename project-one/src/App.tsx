@@ -8,11 +8,15 @@ import TopField from './components/TopField/TopField';
 import Pagination from './components/Pagination/Pagination';
 import Flyout from './components/Flyout/Flyout';
 
+import ThemeToggle from './components/ThemeToggle/ThemeToggle';
+import { useTheme } from './components/ThemeContext/ThemeContext';
+
 const App = () => {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const detailsId = searchParams.get('details');
   const detailsRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const savedSearchTerm = localStorage.getItem('searchTerm') || '';
@@ -30,7 +34,10 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <div className={`app ${isDetailsVisible ? 'split-view' : 'full-width'}`}>
+      <div
+        className={`app ${theme} ${isDetailsVisible ? 'split-view' : 'full-width'}`}
+      >
+        <ThemeToggle />
         <div className="main-content">
           <TopField />
           <Pagination />
