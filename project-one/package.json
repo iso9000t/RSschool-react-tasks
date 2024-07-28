@@ -10,7 +10,8 @@
     "lint:fix": "eslint . --ext ts,tsx --fix && echo 'Linting and fixing complete!'",
     "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\" && echo 'Formatting complete!'",
     "preview": "vite preview",
-    "prepare": "cd .. && husky project-one/.husky"
+    "prepare": "cd .. && husky project-one/.husky",
+    "test": "vitest"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
@@ -38,7 +39,8 @@
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.2",
     "typescript": "^5.2.2",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vitest": "^2.0.4"
   },
   "lint-staged": {
     "src/**/*.{js,css,ts,tsx,jsx}": [
