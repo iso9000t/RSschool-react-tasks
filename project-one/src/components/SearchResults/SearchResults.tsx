@@ -1,23 +1,20 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-
 import { setTotalPages } from '../../store/paginationSlice';
 import { Character } from '../../types';
-import { RootState } from '../../store/store';
 import { useLazyGetCharactersQuery } from '../../store/apiSlice';
+import { RootState } from '../../store/store';
 
 const SearchResults = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [trigger, { data, isLoading, error }] = useLazyGetCharactersQuery();
   const dispatch = useDispatch();
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage,
   );
-
-  const searchTerm = searchParams.get('searchTerm') || '';
 
   useEffect(() => {
     if (searchTerm) {

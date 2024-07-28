@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import paginationReducer, { PaginationState } from './paginationSlice';
+import paginationReducer from './paginationSlice';
+import searchReducer, { SearchState } from './searchSlice';
 import { rickAndMortyApi } from './apiSlice';
 
 export const store = configureStore({
   reducer: {
     [rickAndMortyApi.reducerPath]: rickAndMortyApi.reducer,
     pagination: paginationReducer,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(rickAndMortyApi.middleware),
@@ -15,6 +17,6 @@ export const store = configureStore({
 setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState> & {
-  pagination: PaginationState;
+  search: SearchState;
 };
 export type AppDispatch = typeof store.dispatch;
