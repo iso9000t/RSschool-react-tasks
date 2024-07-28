@@ -21,7 +21,7 @@ const SearchResults = () => {
   );
 
   useEffect(() => {
-    if (searchTerm) {
+    if (searchTerm !== null) {
       trigger({ searchTerm, page: currentPage });
     }
   }, [searchTerm, currentPage, trigger]);

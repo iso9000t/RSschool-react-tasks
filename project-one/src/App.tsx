@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './store/store';
 import { setSearchTerm } from './store/searchSlice';
 import SearchResults from './components/SearchResults/SearchResults';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import TopField from './components/TopField/TopField';
 import Pagination from './components/Pagination/Pagination';
 import Flyout from './components/Flyout/Flyout';
-
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 import { useTheme } from './components/ThemeContext/ThemeContext';
 
@@ -17,13 +17,22 @@ const App = () => {
   const detailsId = searchParams.get('details');
   const detailsRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
 
   useEffect(() => {
     const savedSearchTerm = localStorage.getItem('searchTerm') || '';
     if (savedSearchTerm) {
       dispatch(setSearchTerm(savedSearchTerm));
+    } else {
+      dispatch(setSearchTerm(''));
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!searchTerm) {
+      dispatch(setSearchTerm(''));
+    }
+  }, [dispatch, searchTerm]);
 
   const handleCloseDetails = () => {
     searchParams.delete('details');
