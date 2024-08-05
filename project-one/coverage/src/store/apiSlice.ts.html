@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">95.65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>22/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">95.65% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>22/23</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -91,62 +91,62 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';</span></span></span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Character, ApiResponse } from '../types';
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export const rickAndMortyApi = createApi({</span>
-<span class="cstat-no" title="statement not covered" >  reducerPath: 'rickAndMortyApi',</span>
-<span class="cstat-no" title="statement not covered" >  baseQuery: fetchBaseQuery({ baseUrl: 'https://rickandmortyapi.com/api' }),</span>
-<span class="cstat-no" title="statement not covered" >  endpoints: (builder) =&gt; ({</span>
-<span class="cstat-no" title="statement not covered" >    getCharacters: builder.query&lt;</span>
+export const rickAndMortyApi = createApi({
+  reducerPath: 'rickAndMortyApi',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://rickandmortyapi.com/api' }),
+  endpoints: (builder) =&gt; ({
+    getCharacters: builder.query&lt;
       { characters: Character[]; totalPages: number },
       { searchTerm: string; page: number }
-<span class="cstat-no" title="statement not covered" >    &gt;({</span>
-<span class="cstat-no" title="statement not covered" >      query: ({ searchTerm, page }) =&gt;</span>
-<span class="cstat-no" title="statement not covered" >        searchTerm</span>
+    &gt;({
+      query: ({ searchTerm, page }) =&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        searchTerm</span>
 <span class="cstat-no" title="statement not covered" >          ? `/character/?name=${searchTerm}&amp;page=${page}`</span>
-<span class="cstat-no" title="statement not covered" >          : `/character?page=${page}`,</span>
-<span class="cstat-no" title="statement not covered" >      transformResponse: (response: ApiResponse) =&gt; ({</span>
-<span class="cstat-no" title="statement not covered" >        characters: response.results,</span>
-<span class="cstat-no" title="statement not covered" >        totalPages: response.info.pages,</span>
-<span class="cstat-no" title="statement not covered" >      }),</span>
-<span class="cstat-no" title="statement not covered" >    }),</span>
-<span class="cstat-no" title="statement not covered" >    getCharacterDetails: builder.query&lt;Character, number&gt;({</span>
-<span class="cstat-no" title="statement not covered" >      query: (id) =&gt; `/character/${id}`,</span>
-<span class="cstat-no" title="statement not covered" >    }),</span>
-<span class="cstat-no" title="statement not covered" >  }),</span>
-<span class="cstat-no" title="statement not covered" >});</span>
+          : `/character?page=${page}`,
+      transformResponse: (response: ApiResponse) =&gt; ({
+        characters: response.results,
+        totalPages: response.info.pages,
+      }),
+    }),
+    getCharacterDetails: builder.query&lt;Character, number&gt;({
+      query: <span class="fstat-no" title="function not covered" >(id) =&gt; `/character/${id}`,</span>
+    }),
+  }),
+});
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export const { useLazyGetCharactersQuery, useGetCharacterDetailsQuery } =</span>
-<span class="cstat-no" title="statement not covered" >  rickAndMortyApi;</span>
+export const { useLazyGetCharactersQuery, useGetCharacterDetailsQuery } =
+  rickAndMortyApi;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -154,7 +154,7 @@ import { Character, ApiResponse } from '../types';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-28T23:59:13.412Z
+                at 2024-08-05T05:29:45.371Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -1,4 +1,3 @@
-// Flyout.tsx
 import { useDispatch, useSelector } from 'react-redux';
 
 import { unselectAllItems } from '../../store/selectedItemsSlice';
@@ -26,7 +25,6 @@ const Flyout = () => {
       headers.join(',') + '\n' + rows.map((row) => row.join(',')).join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
 
-    // Create a link element, set its href to the blob URL, and click it to trigger the download
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = `${selectedItems.length}_items.csv`;
