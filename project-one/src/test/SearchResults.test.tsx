@@ -20,7 +20,6 @@ describe('SearchResults', () => {
 
     render(<SearchResults />);
 
-    // Check for the error message to be displayed
     await waitFor(() => {
       expect(screen.queryByText('Error: 500')).toBeInTheDocument();
     });
