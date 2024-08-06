@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from './test-utils';
-
 import { http, HttpResponse } from 'msw';
 import SearchResults from '../components/SearchResults/SearchResults';
 import { server } from './mocks/server';
@@ -14,14 +13,14 @@ describe('SearchResults', () => {
   it('api error scenario on load', async () => {
     server.use(
       http.get('https://rickandmortyapi.com/api/character', () => {
-        return HttpResponse.json(null, { status: 500 });
+        return HttpResponse.error();
       }),
     );
 
     render(<SearchResults />);
 
     await waitFor(() => {
-      expect(screen.queryByText('Error: 500')).toBeInTheDocument();
+      expect(screen.queryByText('Error: FETCH_ERROR')).toBeInTheDocument();
     });
   });
 });
