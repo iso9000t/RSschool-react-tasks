@@ -1,4 +1,3 @@
-// ErrorBoundary.test.tsx
 import { render, screen } from './test-utils';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import { vi } from 'vitest';
